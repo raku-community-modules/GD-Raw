@@ -332,6 +332,50 @@ sub gdImageLine (gdImagePtr $im, int32 $x1, int32 $y1, int32 $x2, int32 $y2, int
     #returns void
     is native(LIB) is export {*}
 
+sub gdImageString (gdImagePtr $im, OpaquePointer $font, int32 $x, int32 $y, Str, int32 $color)
+    #returns void
+    is native(LIB) is export {*}
+
+sub gdImageStringUp (gdImagePtr $im, OpaquePointer $font, int32 $x, int32 $y, Str, int32 $color)
+    #returns void
+    is native(LIB) is export {*}
+
+sub gdGiantFont ()
+    returns OpaquePointer
+    is native(LIB) is export is symbol('gdFontGetGiant') {*}
+
+sub gdLargeFont ()
+    returns OpaquePointer
+    is native(LIB) is export is symbol('gdFontGetLarge') {*}
+
+sub gdMediumBoldFont ()
+    returns OpaquePointer
+    is native(LIB) is export is symbol('gdFontGetMediumBold') {*}
+
+sub gdSmallFont ()
+    returns OpaquePointer
+    is native(LIB) is export is symbol('gdFontGetSmall') {*}
+
+sub gdTinyFont ()
+    returns OpaquePointer
+    is native(LIB) is export is symbol('gdFontGetTiny') {*}
+
+# ported from C source "gdft.c"
+sub gdImageStringFT (gdImagePtr $im, CArray[int32] is rw, int32 $color, Str $fontname, num64 $fontsize, num64 $angle, int32 $x, int32 $y, Str)
+    returns Str
+    is native(LIB) is export {*}
+
+sub gdFontCacheShutdown()
+    #returns void
+    is native(LIB) is export is symbol('gdFontCacheShutdown') {*}
+
+sub gdFontCacheSetup()
+    returns int32
+    is native(LIB) is export is symbol('gdFontCacheSetup') {*}
+
+sub gdFTUseFontConfig(int32 $flag)
+    returns int32
+    is native(LIB) is export is symbol('gdFTUseFontConfig') {*}
 
 sub gdTrueColorAlpha($r, $g, $b, $a) is export {
     ((($a) +< 24) +
@@ -634,6 +678,16 @@ L<C<gdImageWebpPtr>|https://libgd.github.io/manuals/2.3.3/files/gd_webp-c.html#g
 
 L<C<gdImageWepbPtrEx>|https://libgd.github.io/manuals/2.3.3/files/gd_webp-c.html#gdImageWebpPtr>
 
+=head2 Free Type Font Rendering
+
+L<C<gdFontCacheShutdown>|https://libgd.github.io/manuals/2.3.3/files/gdft-c.html#gdFontCacheShutdown>
+
+L<C<gdImageStringFT>|https://libgd.github.io/manuals/2.3.3/files/gdft-c.html#gdImageStringFT>
+
+L<C<gdFontCacheSetup>|https://libgd.github.io/manuals/2.3.3/files/gdft-c.html#gdFontCacheSetup>
+
+L<C<gdFTUseFontConfig>|https://libgd.github.io/manuals/2.3.3/files/gdft-c.html#gdFTUseFontConfig>
+
 =head2 C<gd.c>
 
 =head3 Creation and Destruction
@@ -665,6 +719,10 @@ L<C<gdImageGetTrueColorPixel>|https://libgd.github.io/manuals/2.3.3/files/gd-c.h
 =head3 Primitives
 
 L<C<gdImageLine>|https://libgd.github.io/manuals/2.3.3/files/gd-c.html#gdImageLine>
+
+L<C<gdImageString>|https://libgd.github.io/manuals/2.3.3/files/gd-c.html#gdImageString>
+
+L<C<gdImageStringUp>|https://libgd.github.io/manuals/2.3.3/files/gd-c.html#gdImageStringUp>
 
 L<C<gdImageArc>|https://libgd.github.io/manuals/2.3.3/files/gd-c.html#gdImageArc>
 
@@ -784,6 +842,18 @@ L<C<gdImageSmooth>|https://libgd.github.io/manuals/2.3.3/files/gd_filter-c.html#
 
 L<C<gdImageCopyGaussianBlurred>|https://libgd.github.io/manuals/2.3.3/files/gd_filter-c.html#gdImageCopyGaussianBlurred>
 
+=head2 Built-in Fonts
+
+L<C<gdGiantFont>|https://libgd.github.io/manuals/2.3.3/files/gdfontg-c.html>
+
+L<C<gdLargeFont>|https://libgd.github.io/manuals/2.3.3/files/gdfontl-c.html>
+
+L<C<gdMediumBoldFont>|https://libgd.github.io/manuals/2.3.3/files/gdfontmb-c.html>
+
+L<C<gdSmallFont>|https://libgd.github.io/manuals/2.3.3/files/gdfonts-c.html>
+
+L<C<gdTinyFont>|https://libgd.github.io/manuals/2.3.3/files/gdfontt-c.html>
+
 =head2 Additional Functions
 
 C<fopen> file management for graphic files
@@ -792,7 +862,9 @@ C<fclose> file management for graphic files
 
 C<gdImageCreatePalette> is an alias of C<gdImageCreate>.
 
-=head1 MEMORY MANAGEMENT
+=head1 VARIOUS ISSUES
+
+=head2 Memory Management
 
 When creating an in-memory image, some memory is allocated in GD. This
 memory is not automatically deallocated when the variable which refers
@@ -864,11 +936,20 @@ gdFree($ptr);
 
 =end code
 
+=head2 String Fonts
+
+When using functions C<gdImageString>  and C<gdImageStringUp>, you can
+only   use   the   built-in  fonts   C<gdGiantFont>,   C<gdLargeFont>,
+C<gdMediumBoldFont>, C<gdSmallFont> and C<gdTinyFont>. For the moment,
+you cannot load GD-formatted bitmap fonts.
+
 =head1 SEE ALSO
 
 Raku Module C<GD>: L<https://github.com/raku-community-modules/GD>
 
 C library: L<https://libgd.github.io/>
+
+A few examples and a few development notes: L<https://github.com/jforget/raku-sandbox-GD/>
 
 =head1 AUTHORS
 

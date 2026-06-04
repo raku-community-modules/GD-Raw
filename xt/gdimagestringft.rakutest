@@ -1,0 +1,39 @@
+# -*- encoding: utf-8; indent-tabs-mode: nil -*-
+use Test;
+use GD::Raw;
+use NativeCall;
+
+use lib $*PROGRAM.parent;
+use gdtest;
+
+plan 1;
+
+my $width  = 500;
+my $height =  50;
+my $im     = gdImageCreate($width, $height);
+LEAVE gdImageDestroy($im) if $im;
+
+my $white     = gdImageColorAllocate($im, 255, 255, 255);
+my $black     = gdImageColorAllocate($im,   0,   0,   0);
+my $font-name = $*PROGRAM.sibling("ported-gdimagestringft/testing-gd-raw.ttf").Str;
+my $font-size = 30e0; # float, not int
+my $angle     =  0e0; # ditto
+
+my @bounding-rect := CArray[int32].new;
+@bounding-rect[7] = 0; # to allocate room for 8 integers
+
+my $rc = gdFontCacheSetup();
+LEAVE gdFontCacheShutdown();
+# zero : do not use generic font names
+my $config = gdFTUseFontConfig(0);
+
+# negative color to disable anti-aliasing
+my $err = gdImageStringFT($im, @bounding-rect, - $black, $font-name, $font-size, $angle, 10, 40, "Hello world");
+die $err if $err;
+
+ok gdAssertImageEqualsToFile
+  $*PROGRAM.sibling("ported-gdimagestringft/gdimagetextft.png"),
+  $im
+;
+
+# vim: expandtab shiftwidth=4

@@ -1,0 +1,29 @@
+# -*- encoding: utf-8; indent-tabs-mode: nil -*-
+use Test;
+use GD::Raw;
+use NativeCall;
+
+use lib $*PROGRAM.parent;
+use gdtest;
+
+plan 1;
+
+my $width  = 100;
+my $height = 100;
+my $im     = gdImageCreate($width, $height);
+LEAVE gdImageDestroy($im) if $im;
+
+my $white = gdImageColorAllocate($im, 0xff, 0xff, 0xff);
+my $red   = gdImageColorAllocate($im, 255,   0,   0);
+my $blue  = gdImageColorAllocate($im,   0,   0, 255);
+
+gdImageString(  $im, gdGiantFont, 0, 80, "Horizontal", $red);
+gdImageStringUp($im, gdLargeFont, 0, 70, "Vertical",   $blue);
+
+
+ok gdAssertImageEqualsToFile
+  $*PROGRAM.sibling("ported-gdimagestring/gdimagetext.png"),
+  $im
+;
+
+# vim: expandtab shiftwidth=4
