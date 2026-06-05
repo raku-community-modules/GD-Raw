@@ -1,6 +1,8 @@
 Revision history for GD::Raw
 
 {{$NEXT}}
+
+0.7  2026-06-05T11:05:16+02:00
     - Add functions `gdImageString` and `gdImageStringUp`
       to draw strings with fixed-width fonts
     - Add function `gdImageStringFT` and auxiliary functions

@@ -172,9 +172,9 @@ Free Type Font Rendering
 
 [`gdImageColorsTotal`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageColorsTotal)
 
-[`gdImageRed`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageRed)
+[`gdImageRed`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageRed
 
-[`gdImageGreen`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageGreen)
+L<C<gdImageGreen)|https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageGreen>
 
 [`gdImageBlue`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageBlue)
 
@@ -318,10 +318,7 @@ gdFree($ptr);
 String Fonts
 ------------
 
-When using  functions `gdImageString`  and `gdImageStringUp`,  you can
-only   use   the    built-in   fonts   `gdGiantFont`,   `gdLargeFont`,
-`gdMediumBoldFont`,  `gdSmallFont` and  `gdTinyFont`. You  cannot load
-GD-formatted bitmap fonts.
+When using functions `gdImageString` and `gdImageStringUp`, you can only use the built-in fonts `gdGiantFont`, `gdLargeFont`, `gdMediumBoldFont`, `gdSmallFont` and `gdTinyFont`. For the moment, you cannot load GD-formatted bitmap fonts.
 
 SEE ALSO
 ========
