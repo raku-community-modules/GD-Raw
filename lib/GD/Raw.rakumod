@@ -780,7 +780,7 @@ L<C<gdImageSY>|https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageSY>
 
 L<C<gdImageColorsTotal>|https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageColorsTotal>
 
-L<C<gdImageRed>|https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageRed
+L<C<gdImageRed>|https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageRed>
 
 L<C<gdImageGreen>|https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageGreen>
 
