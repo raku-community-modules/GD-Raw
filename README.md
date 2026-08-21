@@ -172,9 +172,9 @@ Free Type Font Rendering
 
 [`gdImageColorsTotal`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageColorsTotal)
 
-[`gdImageRed`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageRed
+[`gdImageRed`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageRed)
 
-L<C<gdImageGreen)|https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageGreen>
+[`gdImageGreen`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageGreen)
 
 [`gdImageBlue`](https://libgd.github.io/manuals/2.3.3/files/gd-h.html#gdImageBlue)
 

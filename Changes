@@ -2,6 +2,9 @@ Revision history for GD::Raw
 
 {{$NEXT}}
 
+0.8  2026-08-22T00:10:27+02:00
+    - Fix pod error that broke compilation in RakuAST
+
 0.7  2026-06-05T11:05:16+02:00
     - Add functions `gdImageString` and `gdImageStringUp`
       to draw strings with fixed-width fonts
